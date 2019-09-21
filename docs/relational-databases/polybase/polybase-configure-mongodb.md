@@ -19,7 +19,9 @@ The article explains how to use PolyBase on a SQL Server instance to query exter
 
 If you haven't installed PolyBase, see [PolyBase installation](polybase-installation.md).
 
-Before creating a database scoped credential a [Master Key](../../t-sql/statements/create-master-key-transact-sql.md) must be created. 
+Before creating a database scoped credential a [Master Key](../../t-sql/statements/create-master-key-transact-sql.md) must be created.
+
+The version of MongoDB should be until 3.6 and the connection string should be made against the Primary Server (if you wish perform writes). 
     
 
 ## Configure a MongoDB external data source
@@ -31,6 +33,10 @@ The following Transact-SQL commands are used in this section:
 - [CREATE DATABASE SCOPED CREDENTIAL (Transact-SQL)](../../t-sql/statements/create-database-scoped-credential-transact-sql.md)
 - [CREATE EXTERNAL DATA SOURCE (Transact-SQL)](../../t-sql/statements/create-external-data-source-transact-sql.md) 
 - [CREATE STATISTICS (Transact-SQL)](../../t-sql/statements/create-statistics-transact-sql.md)
+
+To find out which primary server is running in MongoDB, connect to your instance and run the following command: rs.isMaster ()
+
+In the returned JSON, look for the "primary" attribute. Use this value as a LOCATION parameter when creating external data source.
 
 1. Create a database scoped credential for accessing the MongoDB source.
 
